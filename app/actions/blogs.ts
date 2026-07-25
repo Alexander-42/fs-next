@@ -32,7 +32,7 @@ export const likeBlog = async (formData: FormData) => {
   revalidatePath("/blogs")
 }
 
-export const applyFilter = (formData: FormData) => {
+export const applyFilter = async (formData: FormData) => {
   const filter = formData.get('filter')
   if (typeof filter !== "string" || filter.trim() === "") {
     throw new Error('Search term has to be alphanumeric')
