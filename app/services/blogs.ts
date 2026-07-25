@@ -35,6 +35,6 @@ export const increaseLikeCount = async ( id: number ): Promise<void> => {
   }
   await db
     .update(blogs)
-    .set({ likes: blog.likes++})
+    .set({ likes: ++blog.likes})
     .where(eq(blogs.id, id))
 }
