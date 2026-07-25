@@ -25,7 +25,7 @@ interface addBlogProps {
 }
 
 export const addBlog = async ({ blogContent }: addBlogProps ): Promise<void> => {
-  db.insert(blogs).values({ ...blogContent })
+  await db.insert(blogs).values({ ...blogContent })
 }
 
 export const increaseLikeCount = async ( id: number ): Promise<void> => {
