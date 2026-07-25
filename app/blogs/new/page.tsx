@@ -1,6 +1,6 @@
 import { createBlog } from "../../actions/blogs"
 
-const NewBlogPage = () => {
+const NewBlogPage = async () => {
   return (
     <>
       <div>

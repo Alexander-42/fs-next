@@ -12,7 +12,7 @@ export const createBlog = async (formData: FormData) => {
     url: formData.get("url") as string,
   }
 
-  addBlog({ blogContent })
+  await addBlog({ blogContent })
   revalidatePath("/blogs")
   redirect("/blogs")
 }
@@ -28,14 +28,14 @@ export const likeBlog = async (formData: FormData) => {
     throw new Error(`Invalid blog id: ${rawId}`)
   }
 
-  increaseLikeCount(blogId)
+  await increaseLikeCount(blogId)
   revalidatePath("/blogs")
 }
 
-export const applyFilter = async (formData: FormData) => {
-  const rawFilter = formData.get('rawFilter')
-  if (typeof rawFilter !== "string" || rawFilter.trim() === "") {
+export const applyFilter = (formData: FormData) => {
+  const filter = formData.get('filter')
+  if (typeof filter !== "string" || filter.trim() === "") {
     throw new Error('Search term has to be alphanumeric')
   }
-  redirect(`/blogs?filter=${rawFilter}`)
+  redirect(`/blogs?filter=${filter}`)
 }

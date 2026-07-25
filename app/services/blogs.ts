@@ -1,46 +1,40 @@
 import type { BlogContent, FullBlog } from "../types"
 
-const blogs: FullBlog[] = [
-  {
-    id: 0,
-    title: "Example 1",
-    author: "Example author",
-    url: "Example.com",
-    likes: 3
-  },
-  {
-    id: 1,
-    title: "Example 2",
-    author: "Example author 2",
-    url: "Example2.com",
-    likes: 1
-  },
-]
+import { eq, ilike, desc } from "drizzle-orm"
+import { db } from "../../db"
+import { blogs } from "../../db/schema"
+
 
 let nextId = 2
 const defaultLikes = 0
 
-export const getBlogs = (upperCaseFilter: string) => {
-  const filteredBlogs = upperCaseFilter ? blogs.filter((b) => b.title.toUpperCase().includes(upperCaseFilter)) : blogs
-  return [...filteredBlogs].sort((a, b) => b.likes - a.likes)
+export const getBlogs = async (filter?: string): Promise<FullBlog[]> => {
+  const dbFilteredBlogs = await db.query.blogs.findMany({
+    where: filter ? ilike(blogs.title, `${filter}`) : undefined,
+    orderBy: desc(blogs.likes),
+  })
+  return dbFilteredBlogs
 }
 
-export const getBlogById = (id: number): FullBlog | undefined => {
-  return blogs.find((b) => b.id === id)
+export const getBlogById = async (id: number): Promise<FullBlog | undefined> => {
+  return await db.query.blogs.findFirst({ where: eq( blogs.id, id) })
 }
 
 interface addBlogProps {
   blogContent: BlogContent
 }
 
-export const addBlog = ({ blogContent }: addBlogProps ) => {
-  blogs.push({id: nextId++, likes: defaultLikes, ...blogContent})
+export const addBlog = async ({ blogContent }: addBlogProps ): Promise<void> => {
+  db.insert(blogs).values({ ...blogContent })
 }
 
-export const increaseLikeCount = ( id: number ): void => {
-  const blog = getBlogById(id)
+export const increaseLikeCount = async ( id: number ): Promise<void> => {
+  const blog = await getBlogById(id)
   if (!blog) {
     throw Error("Blog not found")
   }
-  blog.likes++
+  await db
+    .update(blogs)
+    .set({ likes: blog.likes++})
+    .where(eq(blogs.id, id))
 }

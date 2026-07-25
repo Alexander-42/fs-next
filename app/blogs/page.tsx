@@ -13,8 +13,7 @@ const BlogsPage = async ({
   const { filter } = await searchParams
   const filterApplied = filter ? true : false
 
-  const upperCaseFilter = filter?.toUpperCase() ?? ""
-  const blogs = getBlogs(upperCaseFilter)
+  const blogs = await getBlogs(filter)
 
   return (
     <>
@@ -30,7 +29,7 @@ const BlogsPage = async ({
             <label>
               Search term
             </label>
-            <input type="text" name="rawFilter" required />
+            <input type="text" name="filter" required />
             <button type="submit">Search</button>
           </div>
         </form>
