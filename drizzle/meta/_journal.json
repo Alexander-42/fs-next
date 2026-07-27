@@ -15,6 +15,55 @@
       "when": 1784982801237,
       "tag": "0001_default_likes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1785010497648,
+      "tag": "0002_added_users",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1785010698324,
+      "tag": "0003_blogs_users_now_not_null",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1785011479619,
+      "tag": "0004_rapid_snowbird",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1785024204694,
+      "tag": "0005_sloppy_phalanx",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1785032283647,
+      "tag": "0006_elite_leper_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1785161833465,
+      "tag": "0007_mute_magneto",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1785169566103,
+      "tag": "0008_sparkling_ironclad",
+      "breakpoints": true
     }
   ]
 }
